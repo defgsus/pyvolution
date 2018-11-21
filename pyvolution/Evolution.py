@@ -34,21 +34,17 @@ class Evolution:
         self.evaluation.evaluate_pool(self.pool)
         self.evaluation.evaluate_pool(eval_pool)
 
-    def dump_evaluation(self):
+    def dump_evaluation(self, preview_lines=5):
         table = Table(["genotype", "phenotype", "fitness"])
         for phenotype in self.evaluation.fitness:
             table.add_row([
                 phenotype.genotype, phenotype, self.evaluation.fitness[phenotype]
             ])
         table.sort_by_column(-1, key=lambda x: -x)
-        table.dump()
+        table.dump(preview_lines=preview_lines)
 
     def create_new_generation(self, num):
-        pheno_f = self.selection.sorted_pheno_fitness_list(self.evaluation)
-        selected_phenos = [p for p, f in pheno_f[:num]]
+        selected_phenos = self.selection.get_fittest(self.evaluation, num)
         self.pool.clear()
         self.pool.add_phenotypes(selected_phenos)
-        #for i in range(num):
-        #    phenotype = self.selection.get_candidate(self.evaluation).copy()
-        #    self.pool.add_phenotype(phenotype)
 

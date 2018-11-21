@@ -15,6 +15,9 @@ class SequenceGenotype(Genotype):
         self.maximum_length = maximum_length
         self.values = values or []
 
+    def __str__(self):
+        return "%s(%s)" % (super().__str__(), len(self.values))
+
     def copy(self):
         return SequenceGenotype(
             values=copy.copy(self.values),

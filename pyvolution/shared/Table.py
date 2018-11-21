@@ -30,13 +30,20 @@ class Table:
         else:
             self.rows.sort(key=lambda row: key(row[x]))
 
-    def dump(self, fp=None, spacing=2):
+    def dump(self, fp=None, spacing=2, preview_lines=None):
         if fp is None:
             import sys
             fp = sys.stdout
         widths = self.get_column_widths()
         fmt_str = " ".join("%%%ss" % (widths[name]-1+spacing) for name in self.headers) + "\n"
         fp.write(fmt_str % tuple(self.headers))
-        for row in self.rows:
+
+        rows = self.rows
+        if preview_lines and preview_lines * 2 < len(rows):
+            rows = self.rows[:preview_lines]
+            rows += [[".."] * len(self.headers)]
+            rows += self.rows[-preview_lines:]
+
+        for row in rows:
             fp.write(fmt_str % tuple(row))
 

@@ -7,6 +7,10 @@ class FitnessSelection(Selection):
     def __init__(self, rng=None):
         super().__init__(rng=rng)
 
+    def get_fittest(self, evaluation, count):
+        pheno_f = self.sorted_pheno_fitness_list(evaluation)
+        return [p for p, f in pheno_f[:count]]
+
     def sorted_pheno_fitness_list(self, evaluation):
         pheno_fitness_list = [
             (pheno, evaluation.fitness[pheno])
