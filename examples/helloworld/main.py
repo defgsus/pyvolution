@@ -1,12 +1,12 @@
 import copy
 
 from pyvolution import Phenotype, Evolution
-from pyvolution.genome import IntGenotype
+from pyvolution.genome import SequenceGenotype
 from pyvolution.evaluation import FitnessEvaluation
-from pyvolution.mutation import IntMutation
+from pyvolution.mutation import IntSequenceMutation
 
 
-class WordGenotype(IntGenotype):
+class WordGenotype(SequenceGenotype):
 
     def __init__(self):
         super().__init__(
@@ -47,22 +47,13 @@ class WordEvaluation(FitnessEvaluation):
         fitness -= abs(len(s) - len(self.goal))
         return max(0, fitness)
 
-    def calculate_fitness_xx(self, phenotype):
-        s = phenotype.to_string()
-        dif = 0.
-        for i in range(min(len(s), len(self.goal))):
-            dif += abs(ord(s[i]) - ord(self.goal[i]))
-        fitness = 1. / dif if dif else 1.
-        fitness /= 1 + abs(len(s) - len(self.goal))
-        return fitness
-
 
 if __name__ == "__main__":
 
     evolution = Evolution(
         genotypes=[WordGenotype()],
         evaluation=WordEvaluation(),
-        mutation=IntMutation(mutate_probability=.1),
+        mutation=IntSequenceMutation(mutate_probability=.1),
     )
 
     evolution.init_pool(5)

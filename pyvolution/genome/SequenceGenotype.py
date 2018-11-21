@@ -3,7 +3,7 @@ import copy
 from .Genotype import Genotype
 
 
-class IntGenotype(Genotype):
+class SequenceGenotype(Genotype):
 
     def __init__(self, values=None,
                  minimum_length=None, maximum_length=None,
@@ -16,7 +16,7 @@ class IntGenotype(Genotype):
         self.values = values or []
 
     def copy(self):
-        return IntGenotype(
+        return SequenceGenotype(
             values=copy.copy(self.values),
             minimum_length=self.minimum_length,
             maximum_length=self.maximum_length,

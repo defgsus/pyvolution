@@ -1,7 +1,7 @@
 from .Mutation import Mutation
 
 
-class IntMutation(Mutation):
+class IntSequenceMutation(Mutation):
 
     def __init__(
             self,

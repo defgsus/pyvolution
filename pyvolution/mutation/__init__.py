@@ -1,2 +1,2 @@
 from .Mutation import Mutation
-from .IntMutation import IntMutation
+from .IntSequenceMutation import IntSequenceMutation

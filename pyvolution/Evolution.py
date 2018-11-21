@@ -3,8 +3,8 @@ import random
 from .Pool import Pool
 from .evaluation import FitnessEvaluation
 from .selection import FitnessSelection
-from .mutation import IntMutation
-from .genome import IntGenotype
+from .mutation import IntSequenceMutation
+from .genome import SequenceGenotype
 from .shared import Table
 
 
@@ -14,10 +14,10 @@ class Evolution:
                  rng=None):
         self.pool = pool or Pool()
         self.rng = rng or random.Random()
-        self.genotypes = genotypes or [IntGenotype()]
+        self.genotypes = genotypes or [SequenceGenotype()]
         self.selection = selection or FitnessSelection()
         self.evaluation = evaluation or FitnessEvaluation()
-        self.mutation = mutation or IntMutation()
+        self.mutation = mutation or IntSequenceMutation()
 
     def init_pool(self, num):
         self.pool.clear()
